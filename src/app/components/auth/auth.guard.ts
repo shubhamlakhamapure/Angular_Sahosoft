@@ -3,12 +3,12 @@ import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTr
 import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
 import {map} from 'rxjs/operators';
-import { CurrencyPipe } from '@angular/common';
+
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthGuard implements CanActivate {
+export class AuthGuard implements CanActivate { // CANACTIVATE is used to protect the routes from unauthorized access
 
 
   constructor(private _authService:AuthService,private _router:Router){};
@@ -17,9 +17,9 @@ export class AuthGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     
-      return this._authService.isLoggedIn$.pipe(
-        map((_isLoggedIn:boolean)=>{
+      return this._authService.isLoggedIn$.pipe(map((_isLoggedIn:boolean)=>{
           if(!_isLoggedIn){
+            this._router.navigate(['auth/login']);
             return false;
           }
           return true;

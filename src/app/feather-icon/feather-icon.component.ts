@@ -3,18 +3,17 @@ import * as feather from 'feather-icons';
 
 @Component({
   selector: 'app-feather-icon',
+    standalone: true,
   templateUrl: './feather-icon.component.html',
-  styleUrls: ['./feather-icon.component.scss']
+  styleUrls: ['./feather-icon.component.scss'],
 })
 export class FeatherIconComponent implements OnInit {
-@Input('icon') featherIcon:any;
-  constructor() { }
+  @Input('icon') featherIcon: any;
+  constructor() {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
-  ngAfterViewInit(){
+  ngAfterViewInit() {
     feather.replace();
   }
-
 }

@@ -18,12 +18,10 @@ export class LoginComponent implements OnInit {
   submitted: boolean = false; //to show the validation when form submitted
   @ViewChild('nav') elnav :any;
 
-  constructor(
-    private _toaster: ToastrService,
-    private _formBuilder: FormBuilder,
-    private _httpService: HttpService,
-    private _authService:AuthService
-  ) {}
+  constructor(private _toaster: ToastrService,private _formBuilder: FormBuilder,private _httpService: HttpService,private _authService:AuthService)
+  {
+
+  }
 
   ngOnInit(): void {
     this.setLoginForm();
@@ -37,6 +35,7 @@ export class LoginComponent implements OnInit {
     });
   }
 
+  /*
   // setRegistrationForm() {
   //   this.registrationForm = this._formBuilder.group(
   //     {
@@ -114,28 +113,27 @@ export class LoginComponent implements OnInit {
   //      MustMatchValidator('password','confirmPassword'));
   // }
   
- setRegistrationForm() {
+*/
+ 
+
+  // This is the more readable and maintainable way to set the registration form
+  //corporate way to set the registration form
+  setRegistrationForm() {
   this.registrationForm = new FormGroup(
     {
-      firstName: new FormControl(
-        '',
-        Validators.compose([
+      firstName: new FormControl('',Validators.compose([
+          Validators.required,
+          Validators.minLength(3),
+          Validators.maxLength(10),
+        ])
+      ), 
+      lastName: new FormControl('',Validators.compose([
           Validators.required,
           Validators.minLength(3),
           Validators.maxLength(10),
         ])
       ),
-      lastName: new FormControl(
-        '',
-        Validators.compose([
-          Validators.required,
-          Validators.minLength(3),
-          Validators.maxLength(10),
-        ])
-      ),
-      email: new FormControl(
-        '',
-        Validators.compose([
+      email: new FormControl('',Validators.compose([
           Validators.required,
           Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/),
         ])
@@ -157,6 +155,7 @@ export class LoginComponent implements OnInit {
 }
 
 
+//ctrl getter for easy access to form controls for sortingthe validation messages in html
   get ctrl() {
     return this.registrationForm.controls;
   }
@@ -172,22 +171,26 @@ export class LoginComponent implements OnInit {
         //this._toaster.success('Login success','Login');
         //this._toaster.warning('Invalid credentials','Login');
         //Call API
-        this._httpService
-          .post(
-            Global.BASE_API_PATH + 'UserMaster/Login/',
-            this.loginForm.value
-          )
+        //console.log(this.loginForm.value);
+        this._httpService.post(Global.BASE_API_PATH + 'UserMaster/Login/',this.loginForm.value)
           .subscribe((res) => {
+            //console.log(this.loginForm.value);
+            // console.log(res);
             // alert(res);
             if(res.isSuccess){
               this._authService.authLogin(res.data);//only data passed from response
+              this._toaster.success('Login success','Login')
               this.loginForm.reset();
             }
             else{
+              //console.log(res);
               this._toaster.error(res.errors[0],'Login');
             }
           });
           
+      }
+      else{
+        this._toaster.error('Please fill all the required fields', 'Login');
       }
     }
   }

@@ -1,4 +1,4 @@
-import { FormControl, FormGroup, ValidationErrors, ValidatorFn } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn } from '@angular/forms';
 
 //Validations : Allow Alphanumeric char and space only
 export class TextFieldValidator {
@@ -118,9 +118,9 @@ export class NoWhiteSpaceValidator {
 
 
 export function MustMatchValidator(controlName: string, matchingControlName: string): ValidatorFn {
-  return (formGroup: FormGroup): ValidationErrors | null => {
-    const control = formGroup.controls[controlName];
-    const matchingControl = formGroup.controls[matchingControlName];
+  return (ctrl: AbstractControl) : ValidationErrors | null => {
+    const control = ctrl.get(controlName);
+    const matchingControl = ctrl.get(matchingControlName);
 
     // Return null if either control is not found (e.g., during form initialization)
     if (!control || !matchingControl) {

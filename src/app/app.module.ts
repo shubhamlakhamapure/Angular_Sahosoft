@@ -9,6 +9,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthModule } from './components/auth/auth.module';
 import { SharedModule } from './shared/shared.module';
+import { FeatherIconComponent } from "./feather-icon/feather-icon.component";
 //import { SharedModule } from './shared/shared.module';
 
 @NgModule({
@@ -21,16 +22,16 @@ import { SharedModule } from './shared/shared.module';
     //NgbModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot({
-      timeOut: 5000,
-      positionClass: 'toast-bottom-right',
-      preventDuplicates: true,
-      progressAnimation: 'decreasing',
-      tapToDismiss: true,
+        timeOut: 5000,
+        positionClass: 'toast-bottom-right',
+        preventDuplicates: true,
+        progressAnimation: 'decreasing',
+        tapToDismiss: true,
     }),
-    
-    SharedModule,
-    AuthModule,//FOR EAGER LOADING
-  ],
+    //SharedModule,
+    AuthModule,
+    FeatherIconComponent
+],
   providers: [],
   bootstrap: [AppComponent],
 })

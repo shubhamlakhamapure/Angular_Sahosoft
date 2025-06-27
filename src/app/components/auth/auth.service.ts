@@ -6,9 +6,13 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root',
 })
 export class AuthService {
-  private currentUser: BehaviorSubject<any> = new BehaviorSubject<any>(null);
-  private isLoggedIn: BehaviorSubject<any> = new BehaviorSubject<boolean>(false);
+  private currentUser: BehaviorSubject<any> = new BehaviorSubject<any>(null); // Holds the current user details: if user refreshes the page,
+                                                                              //  user will  be null and he will be logout : means this is as reactive manner
+                                                                                                                                                        
+  private isLoggedIn: BehaviorSubject<any> = new BehaviorSubject<boolean>(false); 
 
+
+  //getter for currentUser and isLoggedIn to access them as observables
   get currentUser$() {
     return this.currentUser.asObservable();
   }

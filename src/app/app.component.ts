@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';  
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -8,9 +10,10 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'admin portal';
-  constructor() {
+  active = 1;
+  constructor(private toastr: ToastrService) { }
 
-  }
+
 
   ngOnInit() {
 

@@ -11,10 +11,10 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
   declarations: [
     LoginComponent
   ],
+  
   imports: [
     CommonModule,
     AuthRoutingModule,
-    
     FormsModule,
     ReactiveFormsModule,
     NgbModule

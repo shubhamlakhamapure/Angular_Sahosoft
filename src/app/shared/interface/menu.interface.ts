@@ -6,11 +6,4 @@ export interface Menu {
    active?:boolean;
    children?: Menu[]
 }
-
-
-// title: string;
-// path?: string;
-// icon?: string;
-// type: string;
-// active?: boolean;
-// children?: Menu[]
+   
